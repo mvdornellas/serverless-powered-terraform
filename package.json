@@ -1,0 +1,41 @@
+{
+  "name": "serverless-powered-terraform",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "package": "yarn build && cpy package.json dist/package.json && cd dist && yarn",
+    "tf:init": "cd terraform && terraform init",
+    "tf:validate": "cd terraform && terraform validate",
+    "tf:plan": "cd terraform && terraform plan",
+    "tf:apply": "cd terraform && terraform apply",
+    "deploy": "yarn package && yarn tf:apply",
+    "cleanup": "rmdir /S ./dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --project tsconfig.json -t verbose"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dynamoose": "^1.11.1",
+    "gulp-npm-dist": "^1.0.3",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.36",
+    "@types/node": "^13.1.6",
+    "eslint": "^6.6.0",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^5.3.1",
+    "tslint": "^6.0.0",
+    "tslint-config-standard": "^9.0.0",
+    "typescript": "^3.7.2"
+  },
+  "moduleNameMapper": {
+    "#enterprise/(.*)": "<rootDir>/src/1-enterprise/$1",
+    "#application/(.*)": "<rootDir>/src/2-application/$1",
+    "#adapter/(.*)": "<rootDir>/src/3-adapter/$1",
+    "#framework/(.*)": "<rootDir>/src/4-framework/$1"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+      "esModuleInterop": true,
+      "lib": ["es2017"],
+      "moduleResolution": "node",
+      "module": "commonJS",
+      "outDir": "dist",
+      "strict": false,
+      "target": "es2017",
+      "typeRoots": ["node_modules/@types", "../node_modules/@types"],
+      "baseUrl": ".",
+      "paths": {
+        "#enterprise/*": ["src/1-enterprise/*"],
+        "#application/*": ["src/2-application/*"],
+        "#adapter/*": ["src/3-adapter/*"],
+        "#framework/*": ["src/4-framework/*"]
+      }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
