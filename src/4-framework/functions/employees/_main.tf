@@ -2,8 +2,6 @@ variable "api_gateway_rest_api" {}
 variable "function_archive" {}
 variable "module_name" {}
 
-
-
 data "aws_iam_policy_document" "lambda_assume_role_document" {
   version = "2012-10-17"
 
@@ -79,6 +77,15 @@ resource "aws_api_gateway_resource" "resource_employees_id" {
   path_part   = "{employeeId}"
 }
 
+resource "aws_dynamodb_table" "employee_table" {
+  name           = "Employees"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "id"
+  attribute {
+    name = "id"
+    type = "S"
+  }
+}
 
 output "aws_api_gateway_deployment_employees" {
   value = [
