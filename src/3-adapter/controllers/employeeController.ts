@@ -1,15 +1,34 @@
+import 'reflect-metadata'
+import { injectable, inject } from 'inversify'
 import { OutputBase } from '#adapter/outputBase'
 import { Employee } from '#enterprise/entities/employee'
-import { EmployeeRepository } from '#framework/repositories/employeeRepository'
+import { IEmployeeRepository, IEmployeeRepositoryToken } from '#application/repositories/iEmployeeRepository'
 import { v4 as uuid } from 'uuid'
 
-export class EmployeeController {
+export interface IEmployeeController {
+  create ({ name, age, role }: {
+    name: string,
+    age: number,
+    role: string
+  }): Promise<OutputBase<Employee>>
 
-  private readonly employeeRepository!: EmployeeRepository
+  update (id: string, { name, age, role }: {
+    name: string,
+    age: number,
+    role: string
+  }): Promise<OutputBase<Employee>>
 
-  constructor () {
-    this.employeeRepository = new EmployeeRepository()
-  }
+  get (id: string): Promise<OutputBase<Employee>>
+
+  delete (id: string): Promise<OutputBase<void>>
+}
+
+export const IEmployeeControllerToken = Symbol('IEmployeeController')
+
+@injectable()
+export class EmployeeController implements IEmployeeController {
+
+  @inject(IEmployeeRepositoryToken) private employeeRepository!: IEmployeeRepository
 
   async create ({ name, age, role }: {
     name: string,
@@ -40,7 +59,7 @@ export class EmployeeController {
   }): Promise<OutputBase<Employee>> {
     try {
       return new OutputBase<Employee>({
-        data: await this.employeeRepository.create({
+        data: await this.employeeRepository.update({
           id,
           name,
           age,
@@ -80,5 +99,4 @@ export class EmployeeController {
       })
     }
   }
-
 }

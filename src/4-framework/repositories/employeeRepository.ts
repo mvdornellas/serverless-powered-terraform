@@ -1,7 +1,10 @@
+import 'reflect-metadata'
 import { IEmployeeRepository } from '#application/repositories/iEmployeeRepository'
 import { Employee } from '#enterprise/entities/employee'
 import { EmployeeModel } from '#framework/models/employeeModel'
+import { injectable } from 'inversify'
 
+@injectable()
 export class EmployeeRepository implements IEmployeeRepository {
   async get (id: string): Promise<Employee> {
     return EmployeeModel.queryOne('id').eq(id).exec()

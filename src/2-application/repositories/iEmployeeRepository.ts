@@ -1,5 +1,4 @@
 import { Employee } from '#enterprise/entities/employee'
-import { Token } from 'typedi'
 
 export interface IEmployeeRepository {
   get (id: string): Promise<Employee>
@@ -8,4 +7,4 @@ export interface IEmployeeRepository {
   update (employee: Employee): Promise<Employee>
 }
 
-export const IEmployeeRepositoryToken = new Token<IEmployeeRepository>()
+export const IEmployeeRepositoryToken = Symbol('IEmployeeRepository')
