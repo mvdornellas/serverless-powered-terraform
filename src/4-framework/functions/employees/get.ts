@@ -1,7 +1,8 @@
+import ioc from '#framework/ioc/inversify.config'
 import { OutputBase } from '#adapter/outputBase'
 import builder from '#framework/common/builder'
 import { APIGatewayEvent, Handler } from 'aws-lambda';
-import { EmployeeController } from '#adapter/controllers/employeeController';
+import { IEmployeeController, IEmployeeControllerToken } from '#adapter/controllers/employeeController';
 
 const employeeIdIsRequired = () => new OutputBase<any>({
   success: false,
@@ -18,7 +19,7 @@ export const getEmployee: Handler = async (_event: APIGatewayEvent) => {
   if(!employeeId) {
     return employeeIdIsRequired
   }
-  const employeeController = new EmployeeController()
+  const employeeController = ioc.get<IEmployeeController>(IEmployeeControllerToken)
   const employee = await employeeController.get(employeeId)
   console.log(`OUTPUT DATA`, employee)
   return builder.response(employee)
