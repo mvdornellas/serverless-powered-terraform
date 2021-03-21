@@ -18,7 +18,7 @@ module.exports = {
             "#adapter": resolve("src/3-adapter"),
             "#framework": resolve("src/4-framework")
           },
-        extensions: ['.ts', '.js'] //resolve all the modules other than index.ts
+        extensions: ['.ts', '.js']
     },
     resolveLoader: {
     modules: [resolve("./node_modules")]
