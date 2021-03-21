@@ -39,7 +39,8 @@ data "aws_iam_policy_document" "lambda_document" {
       "dynamodb:UpdateItem",
       "dynamodb:DescribeTable",
       "dynamodb:CreateTable",
-      "dynamodb:DeleteItem"
+      "dynamodb:DeleteItem",
+      "dynamodb:UpdateItem"
     ]
 
     resources = ["*"]
@@ -89,5 +90,7 @@ output "aws_api_gateway_deployment_employees" {
          aws_api_gateway_integration.delete_employee.id,
          aws_api_gateway_method.create_employee.id,
          aws_api_gateway_integration.create_employee.id,
+         aws_api_gateway_method.update_employee.id,
+         aws_api_gateway_integration.update_employee.id,
   ]
 }
