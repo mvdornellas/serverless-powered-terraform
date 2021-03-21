@@ -1,12 +1,13 @@
 variable "api_gateway_rest_api" {}
 variable "function_archive" {}
+# variable "aws_api_gateway_method" {}
 
 locals {
   name              = "get-employee"
-  handler           = "src/4-framework/functions/employees/get.handler"
+  handler           = "handlers.getEmployee"
   timeout           = "30"
   memory_size       = "128"
-  runtime           = "nodejs12.x"
+  runtime           = "nodejs10.x"
 }
 
 data "aws_iam_policy_document" "lambda_assume_role_document" {
@@ -77,4 +78,8 @@ resource "aws_lambda_permission" "lambda" {
   function_name = local.name
   principal     = "apigateway.amazonaws.com"
   source_arn = "${var.api_gateway_rest_api.execution_arn}/*/*"
+}
+
+output "get_employee_invoke_arn" {
+  value = aws_lambda_function.lambda.invoke_arn
 }

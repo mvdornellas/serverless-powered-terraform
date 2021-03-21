@@ -2,7 +2,7 @@
 data "archive_file" "function_archive" {
   type        = "zip"
   source_dir  = "${path.module}/../dist"
-  output_path = "${path.module}/../dist/function.zip"
+  output_path = "${path.module}/../dist/handlers.zip"
 }
 
 module "employees" {
