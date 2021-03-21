@@ -4,7 +4,7 @@ locals {
     handler           = "handlers.getEmployee"
     timeout           = "30"
     memory_size       = "128"
-    runtime           = "nodejs10.x"
+    runtime           = "nodejs12.x"
     http_method       = "GET"
   }
 }
@@ -27,15 +27,10 @@ resource "aws_lambda_permission" "get_employee" {
   source_arn = "${var.api_gateway_rest_api.execution_arn}/*/*"
 }
 
-resource "aws_api_gateway_resource" "get_employee" {
-  rest_api_id = var.api_gateway_rest_api.id
-  parent_id   = aws_api_gateway_resource.resource_employees.id
-  path_part   = "{employeeId}"
-}
 
 resource "aws_api_gateway_method" "get_employee" {
    rest_api_id   = var.api_gateway_rest_api.id
-   resource_id   = aws_api_gateway_resource.get_employee.id
+   resource_id   = aws_api_gateway_resource.resource_employees_id.id
    http_method   = local.get_employee.http_method
    authorization = "NONE"
    request_parameters = {
@@ -45,7 +40,7 @@ resource "aws_api_gateway_method" "get_employee" {
 
 resource "aws_api_gateway_integration" "get_employee" {
    rest_api_id = var.api_gateway_rest_api.id
-   resource_id = aws_api_gateway_resource.get_employee.id
+   resource_id = aws_api_gateway_resource.resource_employees_id.id
    http_method = aws_api_gateway_method.get_employee.http_method
    integration_http_method = "POST"
    type                    = "AWS_PROXY"

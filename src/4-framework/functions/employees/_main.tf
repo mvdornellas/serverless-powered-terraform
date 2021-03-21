@@ -38,7 +38,8 @@ data "aws_iam_policy_document" "lambda_document" {
       "dynamodb:PutItem",
       "dynamodb:UpdateItem",
       "dynamodb:DescribeTable",
-      "dynamodb:CreateTable"
+      "dynamodb:CreateTable",
+      "dynamodb:DeleteItem"
     ]
 
     resources = ["*"]
@@ -70,11 +71,22 @@ resource "aws_api_gateway_resource" "resource_employees" {
    path_part   = "employees"
 }
 
+
+resource "aws_api_gateway_resource" "resource_employees_id" {
+  rest_api_id = var.api_gateway_rest_api.id
+  parent_id   = aws_api_gateway_resource.resource_employees.id
+  path_part   = "{employeeId}"
+}
+
+
 output "aws_api_gateway_deployment_employees" {
   value = [
          aws_api_gateway_resource.resource_employees.id,
+         aws_api_gateway_resource.resource_employees.id,
          aws_api_gateway_method.get_employee.id,
          aws_api_gateway_integration.get_employee.id,
+         aws_api_gateway_method.delete_employee.id,
+         aws_api_gateway_integration.delete_employee.id,
          aws_api_gateway_method.create_employee.id,
          aws_api_gateway_integration.create_employee.id,
   ]

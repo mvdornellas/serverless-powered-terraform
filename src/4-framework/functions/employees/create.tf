@@ -4,7 +4,7 @@ locals {
         handler           = "handlers.createEmployee"
         timeout           = "30"
         memory_size       = "128"
-        runtime           = "nodejs10.x"
+        runtime           = "nodejs12.x"
         http_method       = "POST"
     }
 
