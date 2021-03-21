@@ -3,6 +3,7 @@ variable "function_archive" {}
 variable "module_name" {}
 
 
+
 data "aws_iam_policy_document" "lambda_assume_role_document" {
   version = "2012-10-17"
 
@@ -29,7 +30,15 @@ data "aws_iam_policy_document" "lambda_document" {
       "logs:CreateLogStream",
       "logs:PutLogEvents",
       "cloudwatch:PutMetricData",
-      "kms:*",
+      "dynamodb:BatchGetItem",
+      "dynamodb:GetItem",
+      "dynamodb:Query",
+      "dynamodb:Scan",
+      "dynamodb:BatchWriteItem",
+      "dynamodb:PutItem",
+      "dynamodb:UpdateItem",
+      "dynamodb:DescribeTable",
+      "dynamodb:CreateTable"
     ]
 
     resources = ["*"]

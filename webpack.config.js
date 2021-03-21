@@ -3,6 +3,7 @@ var glob = require('glob');
 
 const root = __dirname;
 const resolve = uri => path.resolve(root, uri);
+const firstLower = str => str.charAt(0).toLowerCase() + str.substring(1)
 
 module.exports = {
     entry: { 'handlers' : glob.sync('./src/**/*.ts*') },
@@ -19,10 +20,6 @@ module.exports = {
           },
         extensions: ['.ts', '.js'] //resolve all the modules other than index.ts
     },
-    externals: [
-        /^aws-sdk/i,
-        /^dynamoose/i,
-      ],
     resolveLoader: {
     modules: [resolve("./node_modules")]
     },
@@ -40,23 +37,6 @@ module.exports = {
                 use: [
                   {
                     loader: "babel-loader"
-                  },
-                  {
-                    loader: path.resolve("di.js"),
-                    options: {
-                      dependencies: [
-                        {
-                          whenImport: /#application\/repositories\/i(\w*)/g,
-                          dependency: (v, $1) =>
-                            `#framework/repositories/${firstLower($1)}`
-                        },
-                        {
-                          whenImport: /#application\/services\/i(\w*)/g,
-                          dependency: (v, $1) =>
-                            `#framework/services/${firstLower($1)}`
-                        }
-                      ]
-                    }
                   }
                 ]
               }

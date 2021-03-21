@@ -11,6 +11,7 @@
     "tf:apply": "cd terraform && terraform apply",
     "tf:destroy": "cd terraform && terraform destroy",
     "deploy": "yarn tf:init && yarn tf:validate && yarn build && yarn tf:apply -auto-approve && yarn cleanup",
+    "update": "yarn tf:destroy -auto-approve && yarn deploy",
     "cleanup": "rmdir /S ./dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint --project tsconfig.json -t verbose"
@@ -21,7 +22,9 @@
     "aws-sdk": "^2.868.0",
     "dynamoose": "^1.11.1",
     "gulp-npm-dist": "^1.0.3",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "typedi": "^0.10.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
@@ -37,6 +40,7 @@
     "@types/moment": "^2.13.0",
     "@types/moment-timezone": "^0.5.12",
     "@types/node": "^13.1.6",
+    "@types/uuid": "^8.3.0",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-typescript-metadata": "^0.2.2",
