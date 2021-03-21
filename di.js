@@ -1,4 +1,3 @@
-
 'use strict'
 const { EOL } = require('os')
 const pify = require('pify')

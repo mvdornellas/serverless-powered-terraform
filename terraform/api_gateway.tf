@@ -5,7 +5,7 @@ resource "aws_api_gateway_rest_api" "ton" {
 resource "aws_api_gateway_deployment" "ton" {
    rest_api_id = aws_api_gateway_rest_api.ton.id
    triggers = {
-      redeployment = sha1(jsonencode(module.employees.aws_api_gateway_deployment_get_employee))
+      redeployment = sha1(jsonencode(module.employees.aws_api_gateway_deployment_employees))
    }
 }
 

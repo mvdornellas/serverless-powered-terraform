@@ -5,7 +5,7 @@ import { APIGatewayEvent, Handler } from 'aws-lambda';
 
 export const getEmployee: Handler = async (_event: APIGatewayEvent) => {
   return builder.response(new OutputBase<any>({
-    data: { terraform: 'ok' }
+    data: { get: 'ok' }
   }))
 }
 
