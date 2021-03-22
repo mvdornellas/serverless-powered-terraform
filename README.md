@@ -2,7 +2,7 @@
 proof of concept about terraform building serverless using aws provider
 
 ## Clean Architecture
-![Clean Architecture](./assets/clean_architecture.png)  ![Clean Architecture](./assets/clean_architecture_photo.png)
+![Clean Architecture](./assets/clean_architecture.png,"img1")  ![Clean Architecture](./assets/clean_architecture_photo.png, "img2")
 
 
 ## Use case 
